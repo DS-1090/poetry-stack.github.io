@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solaced by the Cosmos</title>
+
+    <style>
+        body {
+            font-family: 'Helvetica', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url("poembg.jpg");
+            background-size: cover;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            margin: 20px;
+            opacity: 0.95;
+        }
+
+        p {
+            font-size: 24px;
+            margin: 0 0 20px;
+            color: #D09493;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 170%;
+        }
+        #result{
+            margin-top: 3%;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom:4% ;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        #submitbutton {
+            text-align: center;
+            color: #fff;
+            background-color: #D09493;
+            border-radius: 4%;
+            box-shadow: #141413;
+            cursor: pointer;
+            border: none;
+            font-size: 130%;
+        }
+
+        #submitbutton::hover {
+            background-color: #be6e6b;
+        }
+
+        #comment {
+            margin-bottom: 4%;
+ 
+        }
+
+        .slideIn {
+            animation-name: slideIn;
+            animation-duration: 5s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slideIn">
+
+        <div class="container">
+            <p id="poemname"><b>Dandelion</b></p>
+            <img src="DANDELION .png" alt="Solaced by the Cosmos">
+             <textarea id="comment" rows="3" cols="30"></textarea>
+            <img src="empty.png" onclick="f()" id="like" style="height: 7%; width: 7%; margin-left: 5%;"><br>
+            <input type="submit" onclick="submitComment()" id="submitbutton">
+            <p id="result"></p>
+        </div>
+    </div>
+</body>
+<script>
+    function f() {
+        var l = document.getElementById("like");
+        l.src = "filled.jpg";
+    }
+    function submitComment() {
+        var commentText = document.getElementById("comment").value;
+        var poemname = document.getElementById("poemname").innerHTML;
+
+
+        fetch('1temp.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'text=' + encodeURIComponent(commentText) + '&name=' + encodeURIComponent(poemname),
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        document.getElementById("result").innerHTML = "Thank you!";
+        document.getElementById("comment").value = "";
+    }
+
+
+</script>
+
+</html>

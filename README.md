@@ -1,0 +1,1 @@
+ A website created by me to display my poems, Used HTML, CSS, JS, PHP. Enables users to give comments, like and stores contact details in a form. (The complete backend part has been implemented on the pc, have implemented on dand.html as a reference)
